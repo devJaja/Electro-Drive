@@ -4,14 +4,35 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section id="home" className="h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center text-center relative overflow-hidden">
-      <div className="absolute w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(102,126,234,0.1)_0%,transparent_70%)] animate-rotate" />
+    <section id="home" className="h-screen flex items-center justify-center text-center relative overflow-hidden">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute w-full h-full object-cover"
+        >
+          <source
+            src="IMG_4597.MP4"
+            type="video/mp4"
+          />
+          {/* Fallback for browsers that don't support video */}
+          Your browser does not support the video tag.
+        </video>
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-blue-900/50 to-black/70" />
+      </div>
+
+      {/* Animated radial gradient overlay */}
+      <div className="absolute w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(102,126,234,0.15)_0%,transparent_70%)] animate-rotate z-[1]" />
       
       <div className="relative z-10 max-w-4xl px-5">
-        <h1 className="text-6xl md:text-7xl font-bold mb-5 animate-fadeInUp">
+        <h1 className="text-6xl md:text-7xl font-bold mb-5 animate-fadeInUp drop-shadow-2xl">
           The Future of Driving
         </h1>
-        <p className="text-2xl md:text-3xl mb-10 opacity-90 animate-fadeInUp [animation-delay:0.2s]">
+        <p className="text-2xl md:text-3xl mb-10 opacity-90 animate-fadeInUp [animation-delay:0.2s] drop-shadow-lg">
           Experience the ultimate in electric vehicle innovation with our premium selection of Tesla vehicles
         </p>
         <Link 
