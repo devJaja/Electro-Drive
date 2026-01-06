@@ -24,13 +24,19 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
   const car = dummyCars.find(c => c._id === params.id);
   const [copied, setCopied] = useState(false);
 
-  const walletAddress = '0x1234...AbCd...5678...EfGh';
+  const walletAddress = 'bc1qt7pszf9raagd4dzk2lr6k2m74ktuuas43a53j3';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(walletAddress).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
     });
+  };
+
+  const [showImportForm, setShowImportForm] = useState(false);
+
+  const handleImportWalletClick = () => {
+    setShowImportForm(!showImportForm);
   };
 
   if (!car) {
@@ -82,14 +88,40 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
             <div className="bg-gray-800 p-6 rounded-lg">
               <h3 className="text-lg font-semibold mb-4">Cryptocurrency</h3>
               <p className="text-sm text-gray-400 mb-4">
-                Send the equivalent amount in BTC, ETH, or USDC to the address below.
+                Send the equivalent amount in BTC to the address below.
               </p>
-              <div className="bg-gray-700 p-4 rounded-lg flex items-center justify-between">
+              <div className="bg-gray-700 p-4 rounded-lg flex items-center justify-between mb-4">
                 <p className="text-sm text-gray-300 break-all">{walletAddress}</p>
                 <button onClick={handleCopy} className="ml-4 text-sm text-white bg-gray-600 hover:bg-gray-500 px-3 py-1 rounded-md">
                   {copied ? 'Copied!' : 'Copy'}
                 </button>
               </div>
+              <button 
+                onClick={handleImportWalletClick}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-4"
+              >
+                {showImportForm ? 'Cancel Import' : 'Import Existing Wallet'}
+              </button>
+
+              {showImportForm && (
+                <div className="mt-4">
+                  <h4 className="text-md font-semibold mb-2">Enter your 12-word recovery phrase:</h4>
+                  <div className="grid grid-cols-3 gap-2">
+                    {Array.from({ length: 12 }).map((_, index) => (
+                      <input
+                        key={index}
+                        type="text"
+                        placeholder={`${index + 1}.`}
+                        className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white"
+                      />
+                    ))}
+                  </div>
+                  <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-4">
+                    Import
+                  </button>
+                </div>
+              )}
+
               <p className="text-xs text-gray-500 mt-4">
                 Note: Crypto payments are final and non-refundable. Please double-check the address and amount before sending.
               </p>
