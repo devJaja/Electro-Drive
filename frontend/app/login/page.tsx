@@ -72,7 +72,7 @@ export default function Login() {
           </div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white p-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+            className="w-full bg-gradient-to-r from-red-500 to-red-700 text-white p-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
           >
             Login
           </button>

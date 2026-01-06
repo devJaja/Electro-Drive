@@ -18,28 +18,28 @@ export default function Header() {
     <header className={`fixed w-full px-12 py-5 flex justify-between items-center z-50 transition-all duration-300 ${
       scrolled ? 'bg-black/90 backdrop-blur-lg' : 'bg-black/80 backdrop-blur-md'
     } border-b border-white/10`}>
-      <div className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent tracking-wider">
+      <div className="text-3xl font-bold bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent tracking-wider">
         ⚡ ELECTRODRIVE
       </div>
       <nav className="flex gap-8">
-        <Link href="#home" className="text-white hover:text-purple-500 transition-colors font-medium">
+        <Link href="#home" className="text-white hover:text-red-500 transition-colors font-medium">
           Home
         </Link>
-        <Link href="#inventory" className="text-white hover:text-purple-500 transition-colors font-medium">
+        <Link href="#inventory" className="text-white hover:text-red-500 transition-colors font-medium">
           Inventory
         </Link>
-        <Link href="#features" className="text-white hover:text-purple-500 transition-colors font-medium">
+        <Link href="#features" className="text-white hover:text-red-500 transition-colors font-medium">
           Features
         </Link>
-        <Link href="#contact" className="text-white hover:text-purple-500 transition-colors font-medium">
+        <Link href="#contact" className="text-white hover:text-red-500 transition-colors font-medium">
           Contact
         </Link>
       </nav>
       <div className="flex gap-4">
-        <Link href="/login" className="px-6 py-2 border border-purple-500 text-white rounded-full hover:bg-purple-500/10 transition-colors font-medium">
+        <Link href="/login" className="px-6 py-2 border border-red-500 text-white rounded-full hover:bg-red-500/10 transition-colors font-medium">
           Login
         </Link>
-        <Link href="/register" className="px-6 py-2 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-full hover:opacity-90 transition-opacity font-medium">
+        <Link href="/register" className="px-6 py-2 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-full hover:opacity-90 transition-opacity font-medium">
           Register
         </Link>
       </div>

@@ -15,7 +15,7 @@ export default function Hero() {
           className="absolute w-full h-full object-cover"
         >
           <source
-            src="/IMG_4597.MP4"
+            src="/bg-vid.mp4"
             type="video/mp4"
           />
           {/* Fallback for browsers that don't support video */}
@@ -37,7 +37,7 @@ export default function Hero() {
         </p>
         <Link 
           href="#inventory" 
-          className="inline-block px-12 py-5 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(102,126,234,0.4)] animate-fadeInUp [animation-delay:0.4s]"
+          className="inline-block px-12 py-5 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(102,126,234,0.4)] animate-fadeInUp [animation-delay:0.4s]"
         >
           Explore Our Inventory
         </Link>

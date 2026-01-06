@@ -15,7 +15,7 @@ export default function CarCard({ car }: { car: Car }) {
 
   return (
     <div className="car-card bg-white/5 rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(102,126,234,0.3)] border border-white/10">
-      <div className="relative w-full h-64 bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-8xl overflow-hidden">
+      <div className="relative w-full h-64 bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-8xl overflow-hidden">
         {car.icon}
         <div className="absolute w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shine" />
       </div>
@@ -37,7 +37,7 @@ export default function CarCard({ car }: { car: Car }) {
         
         <button 
           onClick={handleReserve}
-          className="w-full py-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-xl font-semibold transition-transform hover:scale-105"
+          className="w-full py-4 bg-gradient-to-r from-red-500 to-red-700 text-white rounded-xl font-semibold transition-transform hover:scale-105"
         >
           Reserve Now
         </button>

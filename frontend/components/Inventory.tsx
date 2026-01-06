@@ -39,7 +39,7 @@ export default function Inventory() {
 
   return (
     <section id="inventory" className="py-24 px-12">
-      <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent">
+      <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
         Our Premium Collection
       </h2>
       {loading ? (
