@@ -1,68 +1,88 @@
-export const cars = [
+interface Spec {
+  label: string;
+  value: string;
+}
+
+export interface Car {
+  _id: string;
+  name: string;
+  icon: string;
+  description: string;
+  specs: Spec[];
+  price: string;
+}
+
+export const dummyCars: Car[] = [
   {
-    name: 'Model S',
+    _id: '1',
+    name: 'Tesla Model S',
     icon: '🚗',
-    description: 'The flagship sedan with unmatched performance and luxury. Experience acceleration that defies physics.',
+    description: 'The flagship sedan, combining performance, range, and luxury.',
     specs: [
-      { label: '0-60 MPH', value: '1.99s' },
-      { label: 'Range', value: '405 mi' },
-      { label: 'Top Speed', value: '200 mph' }
+      { label: 'Range', value: '405 miles' },
+      { label: '0-60 mph', value: '1.99s' },
+      { label: 'Top Speed', value: '200 mph' },
     ],
-    price: '$89,990'
+    price: '$74,990',
   },
   {
-    name: 'Model 3',
-    icon: '🏎️',
-    description: 'Affordable luxury meets cutting-edge technology. The perfect entry into the world of electric vehicles.',
-    specs: [
-      { label: '0-60 MPH', value: '3.1s' },
-      { label: 'Range', value: '358 mi' },
-      { label: 'Top Speed', value: '162 mph' }
-    ],
-    price: '$42,990'
-  },
-  {
-    name: 'Model X',
+    _id: '2',
+    name: 'Tesla Model 3',
     icon: '🚙',
-    description: 'The ultimate SUV with falcon-wing doors and room for seven. Luxury meets versatility.',
+    description: 'Our most affordable electric vehicle, with quick acceleration and long range.',
     specs: [
-      { label: '0-60 MPH', value: '2.5s' },
-      { label: 'Range', value: '348 mi' },
-      { label: 'Seating', value: '7' }
+      { label: 'Range', value: '333 miles' },
+      { label: '0-60 mph', value: '3.1s' },
+      { label: 'Top Speed', value: '162 mph' },
     ],
-    price: '$99,990'
+    price: '$40,240',
   },
   {
-    name: 'Model Y',
-    icon: '🚐',
-    description: 'Compact SUV with maximum versatility. Perfect for families and adventure seekers.',
+    _id: '3',
+    name: 'Tesla Model X',
+    icon: 'SUV',
+    description: 'The safest, quickest, and most capable SUV on the road.',
     specs: [
-      { label: '0-60 MPH', value: '3.5s' },
-      { label: 'Range', value: '330 mi' },
-      { label: 'Cargo', value: '76 ft³' }
+      { label: 'Range', value: '333 miles' },
+      { label: '0-60 mph', value: '2.5s' },
+      { label: 'Top Speed', value: '149 mph' },
     ],
-    price: '$52,990'
+    price: '$79,990',
   },
   {
-    name: 'Cybertruck',
-    icon: '🛻',
-    description: 'Revolutionary design meets unmatched capability. Built for the extraterrestrial highway.',
+    _id: '4',
+    name: 'Tesla Model Y',
+    icon: 'SUV',
+    description: 'A mid-size SUV with seating for up to seven, ample storage, and a panoramic glass roof.',
     specs: [
-      { label: '0-60 MPH', value: '2.6s' },
-      { label: 'Range', value: '340 mi' },
-      { label: 'Towing', value: '11K lbs' }
+      { label: 'Range', value: '330 miles' },
+      { label: '0-60 mph', value: '4.8s' },
+      { label: 'Top Speed', value: '135 mph' },
     ],
-    price: '$79,990'
+    price: '$44,240',
   },
   {
-    name: 'Roadster',
-    icon: '🏁',
-    description: 'The quickest car in the world. A true supercar experience with electric precision.',
+    _id: '5',
+    name: 'Tesla Cybertruck',
+    icon: '🚚',
+    description: 'Built to be a better truck than trucks, while also delivering more utility than a sports car.',
     specs: [
-      { label: '0-60 MPH', value: '1.9s' },
-      { label: 'Range', value: '620 mi' },
-      { label: 'Top Speed', value: '250+ mph' }
+      { label: 'Range', value: '340 miles' },
+      { label: '0-60 mph', value: '2.6s' },
+      { label: 'Towing', value: '11,000 lbs' },
     ],
-    price: '$200,000'
-  }
+    price: '$60,990',
+  },
+  {
+    _id: '6',
+    name: 'Tesla Roadster',
+    icon: '🏎️',
+    description: 'The quickest car in the world, with record-setting acceleration, range and performance.',
+    specs: [
+      { label: 'Range', value: '620 miles' },
+      { label: '0-60 mph', value: '1.9s' },
+      { label: 'Top Speed', value: '250+ mph' },
+    ],
+    price: '$200,000',
+  },
 ];

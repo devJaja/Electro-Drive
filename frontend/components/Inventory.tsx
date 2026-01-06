@@ -3,39 +3,11 @@
 import { useState, useEffect } from 'react';
 import CarCard from './CarCard';
 
-interface Spec {
-  label: string;
-  value: string;
-}
-
-interface Car {
-  _id: string;
-  name: string;
-  icon: string;
-  description: string;
-  specs: Spec[];
-  price: string;
-}
+import { dummyCars, Car } from '../data/cars';
 
 export default function Inventory() {
-  const [cars, setCars] = useState<Car[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        const res = await fetch('http://localhost:5000/api/cars');
-        const data = await res.json();
-        setCars(data);
-      } catch (error) {
-        console.error('Failed to fetch cars:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCars();
-  }, []);
+  const [cars, setCars] = useState<Car[]>(dummyCars);
+  const [loading, setLoading] = useState(false);
 
   return (
     <section id="inventory" className="py-24 px-12">
