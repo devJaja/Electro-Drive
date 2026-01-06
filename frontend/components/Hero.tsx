@@ -15,14 +15,14 @@ export default function Hero() {
           className="absolute w-full h-full object-cover"
         >
           <source
-            src="IMG_4597.MP4"
+            src="/IMG_4597.MP4"
             type="video/mp4"
           />
           {/* Fallback for browsers that don't support video */}
           Your browser does not support the video tag.
         </video>
         {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-blue-900/50 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-blue-900/0 to-black/10" />
       </div>
 
       {/* Animated radial gradient overlay */}
