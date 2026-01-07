@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import { dummyCars, Car } from '../../../data/cars';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -25,8 +25,9 @@ const BarChart = ({ price }: { price: string }) => {
 };
 
 
-export default function CheckoutPage({ params }: { params: { id: string } }) {
-  const car = dummyCars.find(c => c._id === params.id);
+export default function CheckoutPage({ params }: { params: Promise<{ id: string }> | { id: string } }) {
+  const unwrappedParams = use(params);
+  const car = dummyCars.find(c => c._id === unwrappedParams.id);
   const [copied, setCopied] = useState(false);
   const [showImportForm, setShowImportForm] = useState(false);
 
