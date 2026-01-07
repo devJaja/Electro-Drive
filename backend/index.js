@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const connectDB = require('./db');
 const cors = require('cors');
@@ -8,7 +9,7 @@ const app = express();
 connectDB();
 
 // Init Middleware
-app.use(express.json({ extended: false }));
+app.use(express.json()); // Use express.json() instead of express.json({ extended: false })
 app.use(cors());
 
 app.get('/', (req, res) => res.send('API Running'));
@@ -16,6 +17,7 @@ app.get('/', (req, res) => res.send('API Running'));
 // Define Routes
 app.use('/api/cars', require('./routes/cars'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/payment', require('./routes/payment'));
 
 const PORT = process.env.PORT || 5000;
 

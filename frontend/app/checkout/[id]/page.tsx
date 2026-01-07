@@ -2,6 +2,29 @@
 
 import { useState } from 'react';
 import { dummyCars, Car } from '../../../data/cars';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string);
+
+const BarChart = ({ price }: { price: string }) => {
+  const priceValue = Number(price.replace(/[^0-9.-]+/g,""));
+  const maxPrice = 250000; // A baseline max price for scaling
+  const percentage = (priceValue / maxPrice) * 100;
+
+  return (
+    <div className="w-full bg-gray-700 rounded-full h-8 dark:bg-gray-700 my-4">
+      <div 
+        className="bg-red-500 h-8 rounded-full" 
+        style={{ width: `${percentage}%` }}
+      ></div>
+      <span className="text-sm font-medium text-white absolute right-4 top-1/2 -translate-y-1/2">{price}</span>
+    </div>
+  );
+};
+
+
+import CheckoutForm from '../../../components/CheckoutForm';
 
 const BarChart = ({ price }: { price: string }) => {
   const priceValue = Number(price.replace(/[^0-9.-]+/g,""));
@@ -56,94 +79,77 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
     return <div className="text-center py-20">Car not found!</div>;
   }
 
-  return (
-    <div className="min-h-screen bg-black text-white py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-12">Checkout</h1>
-        
-        <div className="bg-gray-900 rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold mb-4">{car.name}</h2>
-          <p className="text-gray-400 mb-6">{car.description}</p>
-          <div className="relative">
-            <BarChart price={car.price} />
-          </div>
-        </div>
-
-        <div className="bg-gray-900 rounded-lg shadow-lg p-8">
-          <h2 className="text-2xl font-bold mb-6">Payment Options</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Credit Card Option */}
-            <div className="bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-lg font-semibold mb-4">Credit or Debit Card</h3>
-              <form>
-                <div className="mb-4">
-                  <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-300 mb-2">Card Number</label>
-                  <input type="text" id="cardNumber" className="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white" placeholder="•••• •••• •••• ••••" />
-                </div>
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-300 mb-2">Expiry Date</label>
-                    <input type="text" id="expiryDate" className="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white" placeholder="MM/YY" />
-                  </div>
-                  <div>
-                    <label htmlFor="cvc" className="block text-sm font-medium text-gray-300 mb-2">CVC</label>
-                    <input type="text" id="cvc" className="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white" placeholder="•••" />
-                  </div>
-                </div>
-                <button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
-                  Pay {car.price}
-                </button>
-              </form>
-            </div>
-
-            {/* Crypto Option */}
-            <div className="bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-lg font-semibold mb-4">Cryptocurrency</h3>
-              <p className="text-sm text-gray-400 mb-4">
-                Send the equivalent amount in BTC to the address below.
-              </p>
-              <div className="bg-gray-700 p-4 rounded-lg flex items-center justify-between mb-4">
-                <p className="text-sm text-gray-300 break-all">{walletAddress}</p>
-                <button onClick={handleCopy} className="ml-4 text-sm text-white bg-gray-600 hover:bg-gray-500 px-3 py-1 rounded-md">
-                  {copied ? 'Copied!' : 'Copy'}
-                </button>
+    return (
+      <Elements stripe={stripePromise}>
+        <div className="min-h-screen bg-black text-white py-24 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl font-bold text-center mb-12">Checkout</h1>
+            
+            <div className="bg-gray-900 rounded-lg shadow-lg p-8 mb-8">
+              <h2 className="text-2xl font-bold mb-4">{car.name}</h2>
+              <p className="text-gray-400 mb-6">{car.description}</p>
+              <div className="relative">
+                <BarChart price={car.price} />
               </div>
-              <button 
-                onClick={handleImportWalletClick}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-4"
-              >
-                {showImportForm ? 'Cancel Import' : 'Import Existing Wallet'}
-              </button>
-
-              {showImportForm && (
-                <div className="mt-4">
-                  <h4 className="text-md font-semibold mb-2">Enter your 12-word recovery phrase:</h4>
-                  <div className="grid grid-cols-3 gap-2">
-                    {Array.from({ length: 12 }).map((_, index) => (
-                      <input
-                        key={index}
-                        type="text"
-                        placeholder={`${index + 1}.`}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white"
-                        value={mnemonicWords[index]}
-                        onChange={(e) => handleMnemonicChange(index, e.target.value)}
-                      />
-                    ))}
-                  </div>
-                  <button onClick={handleImport} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-4">
-                    Import
-                  </button>
+            </div>
+  
+            <div className="bg-gray-900 rounded-lg shadow-lg p-8">
+              <h2 className="text-2xl font-bold mb-6">Payment Options</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Credit Card Option */}
+                <div className="bg-gray-800 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4">Credit or Debit Card</h3>
+                  <CheckoutForm carPrice={car.price} />
                 </div>
-              )}
-
-              <p className="text-xs text-gray-500 mt-4">
-                Note: Crypto payments are final and non-refundable. Please double-check the address and amount before sending.
-              </p>
+  
+                {/* Crypto Option */}
+                <div className="bg-gray-800 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4">Cryptocurrency</h3>
+                  <p className="text-sm text-gray-400 mb-4">
+                    Send the equivalent amount in BTC to the address below.
+                  </p>
+                  <div className="bg-gray-700 p-4 rounded-lg flex items-center justify-between mb-4">
+                    <p className="text-sm text-gray-300 break-all">{walletAddress}</p>
+                    <button onClick={handleCopy} className="ml-4 text-sm text-white bg-gray-600 hover:bg-gray-500 px-3 py-1 rounded-md">
+                      {copied ? 'Copied!' : 'Copy'}
+                    </button>
+                  </div>
+                  <button 
+                    onClick={handleImportWalletClick}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-4"
+                  >
+                    {showImportForm ? 'Cancel Import' : 'Import Existing Wallet'}
+                  </button>
+  
+                  {showImportForm && (
+                    <div className="mt-4">
+                      <h4 className="text-md font-semibold mb-2">Enter your 12-word recovery phrase:</h4>
+                      <div className="grid grid-cols-3 gap-2">
+                        {Array.from({ length: 12 }).map((_, index) => (
+                          <input
+                            key={index}
+                            type="text"
+                            placeholder={`${index + 1}.`}
+                            className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white"
+                            value={mnemonicWords[index]}
+                            onChange={(e) => handleMnemonicChange(index, e.target.value)}
+                          />
+                        ))}
+                      </div>
+                      <button onClick={handleImport} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-4">
+                        Import
+                      </button>
+                    </div>
+                  )}
+  
+                  <p className="text-xs text-gray-500 mt-4">
+                    Note: Crypto payments are final and non-refundable. Please double-check the address and amount before sending.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
+      </Elements>
+    );}
