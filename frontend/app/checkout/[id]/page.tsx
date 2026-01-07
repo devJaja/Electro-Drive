@@ -23,6 +23,7 @@ const BarChart = ({ price }: { price: string }) => {
 export default function CheckoutPage({ params }: { params: { id: string } }) {
   const car = dummyCars.find(c => c._id === params.id);
   const [copied, setCopied] = useState(false);
+  const [showImportForm, setShowImportForm] = useState(false);
 
   const walletAddress = 'bc1qt7pszf9raagd4dzk2lr6k2m74ktuuas43a53j3';
 
@@ -33,10 +34,22 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
     });
   };
 
-  const [showImportForm, setShowImportForm] = useState(false);
-
   const handleImportWalletClick = () => {
     setShowImportForm(!showImportForm);
+  };
+
+  const [mnemonicWords, setMnemonicWords] = useState<string[]>(Array(12).fill(''));
+
+  const handleMnemonicChange = (index: number, value: string) => {
+    const newMnemonicWords = [...mnemonicWords];
+    newMnemonicWords[index] = value;
+    setMnemonicWords(newMnemonicWords);
+  };
+
+  const handleImport = () => {
+    console.log('Importing wallet with mnemonic:', mnemonicWords.join(' '));
+    // Here you would typically process the mnemonic phrase
+    // For now, we just console log it.
   };
 
   if (!car) {
@@ -113,10 +126,12 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
                         type="text"
                         placeholder={`${index + 1}.`}
                         className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white"
+                        value={mnemonicWords[index]}
+                        onChange={(e) => handleMnemonicChange(index, e.target.value)}
                       />
                     ))}
                   </div>
-                  <button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-4">
+                  <button onClick={handleImport} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-4">
                     Import
                   </button>
                 </div>
