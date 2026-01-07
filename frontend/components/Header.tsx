@@ -48,6 +48,9 @@ export default function Header() {
         <Link href="#contact" className="text-white hover:text-red-500 transition-colors font-medium">
           Contact
         </Link>
+        <Link href="/admin" className="text-white hover:text-red-500 transition-colors font-medium">
+          Admin
+        </Link>
       </nav>
 
       <div className="hidden lg:flex gap-4">
@@ -83,6 +86,9 @@ export default function Header() {
           </Link>
           <Link href="#contact" className="text-white hover:text-red-500 transition-colors font-medium" onClick={toggleMobileMenu}>
             Contact
+          </Link>
+          <Link href="/admin" className="text-white hover:text-red-500 transition-colors font-medium" onClick={toggleMobileMenu}>
+            Admin
           </Link>
         </nav>
         <div className="flex flex-col gap-4">

@@ -1,9 +1,0 @@
-/* app/home.css */
-
-.home-title {
-  @apply text-4xl font-bold text-center my-8;
-}
-
-.home-subtitle {
-  @apply text-xl text-center text-gray-600 mb-8;
-}
