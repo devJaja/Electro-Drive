@@ -3,12 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, deleteUser } from '@/lib/api';
 
+interface User {
+  _id: string;
+  email: string;
+  name?: string; // Assuming name is optional
+}
+
 const ManageUsersPage = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     fetchUsers();
@@ -28,7 +34,7 @@ const ManageUsersPage = () => {
     }
   };
 
-  const openModal = (user) => {
+  const openModal = (user: User) => {
     setCurrentUser(user);
     setIsModalOpen(true);
   };
@@ -38,7 +44,7 @@ const ManageUsersPage = () => {
     setCurrentUser(null);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         await deleteUser(id);
@@ -73,7 +79,7 @@ const ManageUsersPage = () => {
                 <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <button onClick={() => openModal(user)} className="text-blue-600 hover:text-blue-900 mr-3">View</button>
-                  <button onClick={() => handleDelete(user._id)} className="text-red-600 hover:text-red-900">Delete</button>
+                  <button onClick={() => handleDelete(user._id!)} className="text-red-600 hover:text-red-900">Delete</button>
                 </td>
               </tr>
             ))}

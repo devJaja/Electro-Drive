@@ -70,11 +70,15 @@ const ManageOrdersPage = () => {
   };
 
   const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrentOrder((prev) => ({ ...prev, status: e.target.value }));
+    setCurrentOrder((prev) => {
+      if (!prev) return null;
+      return { ...prev, status: e.target.value as Order['status'] };
+    });
   };
 
   const handleUpdateStatus = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!currentOrder) return; // Ensure currentOrder is not null
     try {
       await updateOrder(currentOrder._id!, { status: currentOrder.status });
       fetchOrders();
