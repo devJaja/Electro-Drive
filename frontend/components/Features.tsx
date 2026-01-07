@@ -25,15 +25,15 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="py-24 px-12 bg-gradient-to-br from-gray-100 to-white text-center">
-      <h2 className="text-5xl font-bold mb-16 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+    <section id="features" className="py-16 px-4 sm:px-8 lg:px-12 bg-gradient-to-br from-gray-100 to-white text-center">
+      <h2 className="text-4xl sm:text-5xl font-bold mb-12 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
         Why Choose Electric?
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
         {features.map((feature, index) => (
-          <div key={index} className="py-10 px-5">
-            <div className="text-7xl mb-5">{feature.icon}</div>
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">{feature.title}</h3>
+          <div key={index} className="py-8 px-4">
+            <div className="text-6xl sm:text-7xl mb-4">{feature.icon}</div>
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 text-gray-900">{feature.title}</h3>
             <p className="text-gray-800 leading-relaxed">{feature.description}</p>
           </div>
         ))}

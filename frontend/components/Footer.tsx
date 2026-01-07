@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-black text-center py-10 border-t border-white/10">
+    <footer id="contact" className="bg-black text-center py-10 px-4 sm:px-8 border-t border-white/10">
       <p className="text-white/60 mb-2">
         &copy; 2026 ElectroDrive. Premium Tesla Dealership. All rights reserved.
       </p>

@@ -10,8 +10,8 @@ export default function Inventory() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <section id="inventory" className="py-24 px-12">
-      <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+    <section id="inventory" className="py-16 px-4 sm:px-8 lg:px-12">
+      <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
         Our Premium Collection
       </h2>
       {loading ? (

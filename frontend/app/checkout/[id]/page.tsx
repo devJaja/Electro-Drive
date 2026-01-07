@@ -65,18 +65,18 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
     <Elements stripe={stripePromise}>
       <div className="min-h-screen bg-black text-white py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-12">Checkout</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10">Checkout</h1>
           
-          <div className="bg-gray-900 rounded-lg shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-4">{car.name}</h2>
+          <div className="bg-gray-900 rounded-lg shadow-lg p-6 sm:p-8 mb-8">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">{car.name}</h2>
             <p className="text-gray-400 mb-6">{car.description}</p>
             <div className="relative">
               <BarChart price={car.price} />
             </div>
           </div>
 
-          <div className="bg-gray-900 rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6">Payment Options</h2>
+          <div className="bg-gray-900 rounded-lg shadow-lg p-6 sm:p-8">
+            <h2 className="text-xl sm:text-2xl font-bold mb-6">Payment Options</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Credit Card Option */}
@@ -91,15 +91,15 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
                 <p className="text-sm text-gray-400 mb-4">
                   Send the equivalent amount in BTC to the address below.
                 </p>
-                <div className="bg-gray-700 p-4 rounded-lg flex items-center justify-between mb-4">
-                  <p className="text-sm text-gray-300 break-all">{walletAddress}</p>
-                  <button onClick={handleCopy} className="ml-4 text-sm text-white bg-gray-600 hover:bg-gray-500 px-3 py-1 rounded-md">
+                <div className="bg-gray-700 p-3 sm:p-4 rounded-lg flex items-center justify-between mb-4">
+                  <p className="text-xs sm:text-sm text-gray-300 break-all">{walletAddress}</p>
+                  <button onClick={handleCopy} className="ml-2 sm:ml-4 text-xs sm:text-sm text-white bg-gray-600 hover:bg-gray-500 px-2 sm:px-3 py-1 rounded-md">
                     {copied ? 'Copied!' : 'Copy'}
                   </button>
                 </div>
                 <button 
                   onClick={handleImportWalletClick}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-4"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-4 text-sm sm:text-base"
                 >
                   {showImportForm ? 'Cancel Import' : 'Import Existing Wallet'}
                 </button>
@@ -107,19 +107,19 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
                 {showImportForm && (
                   <div className="mt-4">
                     <h4 className="text-md font-semibold mb-2">Enter your 12-word recovery phrase:</h4>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {Array.from({ length: 12 }).map((_, index) => (
                         <input
                           key={index}
                           type="text"
                           placeholder={`${index + 1}.`}
-                          className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white"
+                          className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-white text-sm"
                           value={mnemonicWords[index]}
                           onChange={(e) => handleMnemonicChange(index, e.target.value)}
                         />
                       ))}
                     </div>
-                    <button onClick={handleImport} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-4">
+                    <button onClick={handleImport} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-4 text-sm sm:text-base">
                       Import
                     </button>
                   </div>

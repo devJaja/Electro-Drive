@@ -28,7 +28,7 @@ export default function Hero() {
       {/* Animated radial gradient overlay */}
       <div className="absolute w-[200%] h-[200%] bg-[radial-gradient(circle,rgba(102,126,234,0.15)_0%,transparent_70%)] animate-rotate z-[1]" />
       
-      <div className="relative z-10 max-w-4xl px-5">
+      <div className="relative z-10 max-w-4xl px-4 sm:px-8">
         <h1 className="text-6xl md:text-7xl font-bold mb-5 animate-fadeInUp drop-shadow-2xl">
           The Future of Driving
         </h1>
