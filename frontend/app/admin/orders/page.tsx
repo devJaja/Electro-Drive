@@ -3,12 +3,34 @@
 import React, { useState, useEffect } from 'react';
 import { getOrders, updateOrder, deleteOrder } from '@/lib/api';
 
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+interface Car {
+  _id: string;
+  make: string;
+  model: string;
+  year: number;
+}
+
+interface Order {
+  _id: string;
+  user: User;
+  car: Car;
+  amount: number;
+  status: 'pending' | 'completed' | 'cancelled';
+  createdAt: string;
+}
+
 const ManageOrdersPage = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentOrder, setCurrentOrder] = useState(null);
+  const [currentOrder, setCurrentOrder] = useState<Order | null>(null);
   const [isEditingStatus, setIsEditingStatus] = useState(false);
 
   useEffect(() => {
@@ -29,13 +51,13 @@ const ManageOrdersPage = () => {
     }
   };
 
-  const openViewModal = (order) => {
+  const openViewModal = (order: Order) => {
     setCurrentOrder(order);
     setIsModalOpen(true);
     setIsEditingStatus(false);
   };
 
-  const openEditModal = (order) => {
+  const openEditModal = (order: Order) => {
     setCurrentOrder(order);
     setIsModalOpen(true);
     setIsEditingStatus(true);
@@ -47,14 +69,14 @@ const ManageOrdersPage = () => {
     setIsEditingStatus(false);
   };
 
-  const handleChangeStatus = (e) => {
+  const handleChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentOrder((prev) => ({ ...prev, status: e.target.value }));
   };
 
-  const handleUpdateStatus = async (e) => {
+  const handleUpdateStatus = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateOrder(currentOrder._id, { status: currentOrder.status });
+      await updateOrder(currentOrder._id!, { status: currentOrder.status });
       fetchOrders();
       closeModal();
     } catch (err) {
@@ -63,7 +85,7 @@ const ManageOrdersPage = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this order?')) {
       try {
         await deleteOrder(id);
@@ -76,131 +98,7 @@ const ManageOrdersPage = () => {
   };
 
   if (loading) return <div className="p-6">Loading orders...</div>;
-  if (error) return <div className="p-6 text-red-500">Failed to edit, 0 occurrences found for old_string ('use client';
-
-import React from 'react';
-
-const ManageOrdersPage = () => {
-  // Mock data for now, will be replaced with API call
-  const orders = [
-    { id: '1', user: 'John Doe', car: 'Tesla Model S', amount: '$79,990', status: 'pending' },
-    { id: '2', user: 'Jane Smith', car: 'Tesla Model 3', amount: '$46,990', status: 'completed' },
-    { id: '3', user: 'Peter Jones', car: 'Tesla Model X', amount: '$89,990', status: 'cancelled' },
-  ];
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Manage Orders</h1>
-      <div className="bg-white p-4 rounded-lg shadow">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b">
-              <th className="text-left p-2">Order ID</th>
-              <th className="text-left p-2">User</th>
-              <th className="text-left p-2">Car</th>
-              <th className="text-left p-2">Amount</th>
-              <th className="text-left p-2">Status</th>
-              <th className="text-left p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order.id} className="border-b">
-                <td className="p-2">{order.id}</td>
-                <td className="p-2">{order.user}</td>
-                <td className="p-2">{order.car}</td>
-                <td className="p-2">{order.amount}</td>
-                <td className="p-2">
-                  <span
-                    className={`px-2 py-1 rounded ${
-                      order.status === 'pending'
-                        ? 'bg-yellow-200 text-yellow-800'
-                        : order.status === 'completed'
-                        ? 'bg-green-200 text-green-800'
-                        : 'bg-red-200 text-red-800'
-                    }`}
-                  >
-                    {order.status}
-                  </span>
-                </td>
-                <td className="p-2">
-                  <button className="text-blue-500 hover:underline">View</button>
-                  <button className="text-yellow-500 hover:underline ml-2">Edit</button>
-                  <button className="text-red-500 hover:underline ml-2">Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-export default ManageOrdersPage;
-). Original old_string was ('use client';
-
-import React from 'react';
-
-const ManageOrdersPage = () => {
-  // Mock data for now, will be replaced with API call
-  const orders = [
-    { id: '1', user: 'John Doe', car: 'Tesla Model S', amount: '$79,990', status: 'pending' },
-    { id: '2', user: 'Jane Smith', car: 'Tesla Model 3', amount: '$46,990', status: 'completed' },
-    { id: '3', user: 'Peter Jones', car: 'Tesla Model X', amount: '$89,990', status: 'cancelled' },
-  ];
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Manage Orders</h1>
-      <div className="bg-white p-4 rounded-lg shadow">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b">
-              <th className="text-left p-2">Order ID</th>
-              <th className="text-left p-2">User</th>
-              <th className="text-left p-2">Car</th>
-              <th className="text-left p-2">Amount</th>
-              <th className="text-left p-2">Status</th>
-              <th className="text-left p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order.id} className="border-b">
-                <td className="p-2">{order.id}</td>
-                <td className="p-2">{order.user}</td>
-                <td className="p-2">{order.car}</td>
-                <td className="p-2">{order.amount}</td>
-                <td className="p-2">
-                  <span
-                    className={`px-2 py-1 rounded ${
-                      order.status === 'pending'
-                        ? 'bg-yellow-200 text-yellow-800'
-                        : order.status === 'completed'
-                        ? 'bg-green-200 text-green-800'
-                        : 'bg-red-200 text-red-800'
-                    }`}
-                  >
-                    {order.status}
-                  </span>
-                </td>
-                <td className="p-2">
-                  <button className="text-blue-500 hover:underline">View</button>
-                  <button className="text-yellow-500 hover:underline ml-2">Edit</button>
-                  <button className="text-red-500 hover:underline ml-2">Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-export default ManageOrdersPage;
-) in /home/jaja/Desktop/my-project/Electro-Drive/frontend/app/admin/orders/page.tsx. No edits made. The exact text in old_string was not found. Ensure you're not escaping content incorrectly and check whitespace, indentation, and context. Use read_file tool to verify.</div>;
+  if (error) return <div className="p-6 text-red-500">Error: {error}</div>;
 
   return (
     <div className="p-6">

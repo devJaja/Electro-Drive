@@ -3,13 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import { getCars, createCar, updateCar, deleteCar } from '@/lib/api';
 
+interface Car {
+  _id: string | null;
+  make: string;
+  model: string;
+  year: string;
+  price: string;
+  description: string;
+  image: string;
+}
+
 const ManageCarsPage = () => {
-  const [cars, setCars] = useState([]);
+  const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentCar, setCurrentCar] = useState({
+  const [currentCar, setCurrentCar] = useState<Partial<Car>>({
     _id: null,
     make: '',
     model: '',
@@ -37,7 +47,7 @@ const ManageCarsPage = () => {
     }
   };
 
-  const openModal = (car = null) => {
+  const openModal = (car: Car | null = null) => {
     setIsEditing(!!car);
     setCurrentCar(car || {
       _id: null,
@@ -64,16 +74,16 @@ const ManageCarsPage = () => {
     });
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setCurrentCar((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = async (e) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       if (isEditing) {
-        await updateCar(currentCar._id, currentCar);
+        await updateCar(currentCar._id!, currentCar);
       } else {
         await createCar(currentCar);
       }
@@ -85,7 +95,7 @@ const ManageCarsPage = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this car?')) {
       try {
         await deleteCar(id);
@@ -128,7 +138,7 @@ const ManageCarsPage = () => {
                 <td className="px-6 py-4 whitespace-nowrap">{car.price}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <button onClick={() => openModal(car)} className="text-yellow-500 hover:text-yellow-700 mr-3">Edit</button>
-                  <button onClick={() => handleDelete(car._id)} className="text-red-600 hover:text-red-900">Delete</button>
+                  <button onClick={() => handleDelete(car._id!)} className="text-red-600 hover:text-red-900">Delete</button>
                 </td>
               </tr>
             ))}
